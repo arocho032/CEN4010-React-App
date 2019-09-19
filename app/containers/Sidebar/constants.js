@@ -1,0 +1,1 @@
+export const SHOW_SIDEBAR = 'sos/Sidebar/SHOW_SIDEBAR';
