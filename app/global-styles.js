@@ -15,10 +15,9 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
-  #app {
-    background-color: #fafafa;
-    min-height: 100%;
-    min-width: 100%;
+  html, body, #app, #sidebar>div {
+    height: 100%
+    width: 100%;
   }
 
   p,
@@ -34,6 +33,7 @@ const GlobalStyle = createGlobalStyle`
     background:#c8c8c8;
     font:600 16px/18px 'Open Sans',sans-serif;
   }
+
   *,:after,:before{box-sizing:border-box}
   .clearfix:after,.clearfix:before{content:'';display:table}
   .clearfix:after{clear:both;display:block}
