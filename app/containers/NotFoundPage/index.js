@@ -8,12 +8,20 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
+import CenteredWrapper from 'components/CenteredWrapper'
+import { Image, Header } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+
 import messages from './messages';
 
 export default function NotFound() {
   return (
-    <h1>
-      <FormattedMessage {...messages.header} />
-    </h1>
+    <CenteredWrapper>
+    	<Header as='h1'>404</Header>
+      	<FormattedMessage {...messages.header} /><br/>
+      	<Link to='/'>
+      		<FormattedMessage {...messages.return}/>
+      	</Link>
+    </CenteredWrapper>
   );
 }

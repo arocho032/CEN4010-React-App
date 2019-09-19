@@ -15,9 +15,19 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
-  html, body, #app, #sidebar>div {
-    height: 100%
+  html, 
+  body, 
+  #app, 
+  #sidebar>div {
+    height: 100%;
     width: 100%;
+  }
+
+  html, 
+  body, 
+  #app, 
+  #notfoundpage>div {
+    text-align: centered;
   }
 
   p,
@@ -188,8 +198,6 @@ const GlobalStyle = createGlobalStyle`
   .foot-lnk{
     text-align:center;
   }
-
-
 
 `;
 
