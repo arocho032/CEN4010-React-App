@@ -13,7 +13,6 @@ function Topbar(props) {
 		<Menu>
 			<Menu.Item name='menu' onClick={props.onChangeSidebarVisibility}>Menu</Menu.Item>
 			<Menu.Menu name='user'>
-				
 			</Menu.Menu> 
 		</Menu>
     );	

@@ -14,42 +14,27 @@ import { sidebarSetVisible } from './actions'
 
 // TODO: Remove the <br> tags and add the padding as css style
 //			Fix the route to profile so it is user-specific
+function createMenuItem(props, name, text, iconName, linkTo) {
+	return (
+		<Menu.Item name={name} as={Link} to={linkTo} onClick={props.onSidebarHide}>
+			<br/>
+			<Icon name={iconName}/>
+			{text}
+			<br/><br/>
+		</Menu.Item>
+	);
+}
 
 function Sidebar(props) {
 	const bodyRef = React.useRef();
 	return(
 		<UISidebar.Pushable as={Wrapper}>
 		  <UISidebar as={Menu} animation='overlay' icon='labeled' inverted onHide={props.onSidebarHide} vertical visible={props.isVisible} target={bodyRef} width='thin'>
-		  		<Menu.Item name="Home" as={Link} to="/" onClick={props.onSidebarHide}>
-		  			<br/>
-		  			<Icon name="address card outline"/>
-		  			Home
-		  			<br/><br/>
-		  		</Menu.Item>
-		  		<Menu.Item name="Profile" as={Link} to="/profile/" onClick={props.onSidebarHide}>
-					<br/>
-		  			<Icon name="address card outline"/>
-		  			Profile
-		  			<br/><br/>		  			
-		  		</Menu.Item>
-		  		<Menu.Item name="Events" as={Link} to="/events/" onClick={props.onSidebarHide}>
-		  			<br/>
-		  			<Icon name="calendar alternate outline"/>
-		  			Events
-		  			<br/><br/>		  			
-		  		</Menu.Item>
-		  		<Menu.Item name="Clubs" as={Link} to="/clubs/" onClick={props.onSidebarHide}>
-		  			<br/>
-		  			<Icon name="building"/>
-		  			Clubs
-		  			<br/><br/>		  			
-		  		</Menu.Item>
-		  		<Menu.Item name="Settings" as={Link} to="/settings/" onClick={props.onSidebarHide}>
-		  			<br/>
-		  			<Icon name="setting"/>
-		  			Settings
-		  			<br/><br/>		  			
-		  		</Menu.Item>
+		  		{createMenuItem(props, "Home", "Home", "home", "/")}		
+		  		{createMenuItem(props, "Profile", "Profile", "address card outline", "/profile/")}		
+		  		{createMenuItem(props, "Events", "Events", "calendar alternate outline", "/events/")}		
+		  		{createMenuItem(props, "Clubs", "Clubs", "building", "/clubs/")}		
+		  		{createMenuItem(props, "Settings", "Settings", "setting", "/settings/")}		
 		  </UISidebar>
 		  <Ref innerRef={bodyRef}>
 	      	  <UISidebar.Pusher>
