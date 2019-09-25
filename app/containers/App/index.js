@@ -16,6 +16,7 @@ import LoginPage from 'containers/LoginPage/Loadable';
 
 import Sidebar from 'containers/Sidebar';
 import Topbar from 'containers/Topbar';
+
 import Footer from 'components/Footer';
 import Wrapper from 'components/Wrapper';
 
@@ -24,7 +25,7 @@ import GlobalStyle from '../../global-styles';
 export default function App() {
   return (
       <Sidebar>
-        <Topbar />
+        <Topbar/>
         <Wrapper>        
           <Switch>
             <Route exact path="/" component={HomePage} />
@@ -33,7 +34,7 @@ export default function App() {
           </Switch>
         </Wrapper>
         <GlobalStyle />
-        <Footer />
+        <Footer/>
       </Sidebar>
     );
 }

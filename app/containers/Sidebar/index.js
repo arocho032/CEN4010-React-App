@@ -62,4 +62,5 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-export default  compose(withConnect, memo)(Sidebar)
+
+export default compose(withConnect, memo)(Sidebar)
