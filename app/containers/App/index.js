@@ -13,6 +13,8 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
+import OrganizationsPage from 'containers/OrganizationsPage/Loadable';
+import UserPage from 'containers/UserPage/Loadable'
 
 import Sidebar from 'containers/Sidebar';
 import Topbar from 'containers/Topbar';
@@ -26,13 +28,15 @@ export default function App() {
   return (
       <Sidebar>
         <Topbar/>
-        <Wrapper>        
+        <Wrapper className="app-wrapper">
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/org" component={OrganizationsPage} />
+            <Route exact path="/profile/:id" component={UserPage} />
             <Route component={NotFoundPage} />
           </Switch>
-        </Wrapper>
+        </Wrapper>         
         <GlobalStyle />
         <Footer/>
       </Sidebar>

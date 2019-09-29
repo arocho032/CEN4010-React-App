@@ -16,7 +16,7 @@ import messages from './messages';
 
 export default function NotFound() {
   return (
-    <CenteredWrapper>
+    <CenteredWrapper vertical>
     	<Header as='h1'>404</Header>
       	<FormattedMessage {...messages.header} /><br/>
       	<Link to='/'>

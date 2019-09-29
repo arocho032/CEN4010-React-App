@@ -4,15 +4,74 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import { Menu } from 'semantic-ui-react';
+import { Menu, Icon, Popup, Form, Input, Button} from 'semantic-ui-react';
+import { Link } from 'react-router-dom'
 
+import { makeSelectCurUser, makeSelectTempUser } from '../App/selectors'
+import { onLoginAttempt, onLoginInputChange, onLogout } from '../App/actions'
 import { sidebarSetVisible } from '../Sidebar/actions'
+
+function createUserSection(user, props) {
+
+	if(user == null) {
+		return(
+			<Popup trigger={
+				<Menu.Item name="log-in" content="Login">
+					<Icon name='user'/>
+					Log In
+				</Menu.Item>
+			} 
+				on='click'
+				position='bottom right'
+			>
+				<Form onSubmit={props.onLogin}>
+					<Form.Field>
+						<label>Username</label>
+						<Input 
+							name="username"
+							value={props.tempUser.username}
+							onChange={props.onHandleChange}
+						/>
+					</Form.Field>
+					<Form.Field>
+						<label>Password</label>
+						<Input 
+							name="password"
+							type="password"
+							value={props.tempUser.password}
+							onChange={props.onHandleChange}
+						/>
+					</Form.Field>
+					<Button type='submit'>Login</Button>
+				</Form>
+			</Popup>
+		)
+	} else {
+		const items = []
+		items.push(
+			<Menu.Item key={1} as={Link} to={'/profile/'+user.id}>
+				{user.name}
+			</Menu.Item>
+		)
+		items.push(
+			<Menu.Item key={2}>
+				<Button onClick={props.onLogoutFun}>Logout</Button>
+			</Menu.Item>
+		)
+		return items
+	}
+
+}
 
 function Topbar(props) {
 	return(
-		<Menu>
-			<Menu.Item name='menu' onClick={props.onChangeSidebarVisibility}>Menu</Menu.Item>
-			<Menu.Menu name='user'>
+		<Menu pointing secondary fixed='top'>
+			<Menu.Item name='menu' onClick={props.onChangeSidebarVisibility}>
+				<Icon name='bars'/>
+				Menu
+			</Menu.Item>
+			<Menu.Menu name='userMenuSection' position='right'>
+				{createUserSection(props.user, props)}
 			</Menu.Menu> 
 		</Menu>
     );	
@@ -22,11 +81,17 @@ Topbar.propTypes = {
 	onChangeSidebarVisibility: PropTypes.func
 }
 
-const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = createStructuredSelector({
+	user: makeSelectCurUser(),
+	tempUser: makeSelectTempUser(),
+});
 
 export function mapDispatchToProps(dispatch) {
 	return {
-		onChangeSidebarVisibility: () => dispatch(sidebarSetVisible(true))
+		onChangeSidebarVisibility: () => dispatch(sidebarSetVisible(true)),
+		onHandleChange: (event, {name, value}) => dispatch(onLoginInputChange(name, value)),
+		onLogin: () => dispatch(onLoginAttempt()),
+		onLogoutFun: () => dispatch(onLogout())
 	};
 }
 

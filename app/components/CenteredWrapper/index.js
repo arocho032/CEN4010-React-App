@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
-const CenteredWrapper = styled.div`
+import { Segment } from 'semantic-ui-react';
+
+const CenteredWrapper = styled(Segment)`
 	text-align: center;
 `;
 

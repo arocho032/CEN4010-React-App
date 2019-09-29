@@ -7,10 +7,8 @@ export const initialState = {
 
 const sidebarReducer = (state = initialState, action) => 
 	produce(state, draft => {
-		console.log(state);
 		switch (action.type) {
 			case SHOW_SIDEBAR:
-				console.log(action.sidebarVisibility)
 				draft.sidebarVisibility = action.sidebarVisibility;
 				break;
 		}
