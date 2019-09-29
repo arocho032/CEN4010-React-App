@@ -17,7 +17,6 @@ const requirementsOptions = [
 ]
 
 function CreateOrganizationModal(props) {
-	console.log(props)
 	return(
 		<Modal 
 				trigger={<Button onClick={props.onOpen}>Create New Organization</Button>}
@@ -56,7 +55,7 @@ function CreateOrganizationModal(props) {
 								onChange={props.onHandleChange}
 								options={requirementsOptions}
 								placeholder="Select..."
-								checked={props.tempOrg.req}
+								value={props.tempOrg.req}
 								name="req"
 					            selection
 							/>
@@ -65,7 +64,7 @@ function CreateOrganizationModal(props) {
 							<label>Privacy Settings:</label>
 							<Checkbox 
 								name="priv"
-								value={props.tempOrg.priv}
+								checked={props.tempOrg.priv}
 								label="Make my Organization Private."
 								onChange={props.onHandleChange}
 							/>

@@ -4,6 +4,7 @@ import { initialState } from './reducer';
 const selectRouter = state => state.router;
 const selectUser = state => state.app.curUser || initialState.curUser;
 const selectTempUser = state => state.app.tempUser || initialState.tempUser;
+const selectTepmPass = state => state.app.passwordCheck || initialState.passwordCheck;
 
 const makeSelectLocation = () =>
   createSelector(
@@ -23,4 +24,10 @@ const makeSelectTempUser= () =>
 		tempUser => tempUser
 	); 
 
-export { makeSelectLocation, makeSelectCurUser, makeSelectTempUser };
+const makeSelectPasswordField = () =>
+	createSelector(
+		selectTepmPass,
+		passwordCheck => passwordCheck
+	) 
+
+export { selectUser, makeSelectLocation, makeSelectCurUser, makeSelectTempUser, makeSelectPasswordField };

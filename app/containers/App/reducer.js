@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { ON_LOGIN_ATTEMPT, ON_CHANGE_TEMP_USER, ON_LOGOUT} from './constants';
+import { ON_LOGIN_ATTEMPT, ON_CHANGE_TEMP_USER, ON_LOGOUT, ON_ATTEMPT_USER_CHANGE } from './constants';
 
 export const initialState = {
 	curUser: null,
@@ -8,14 +8,15 @@ export const initialState = {
 		username: "",
 		password: ""
 	},
+	passwordCheck: null,
 	users: {
 		jdoe001: {
 			id: "jdoe001",
 			name: "Jane Doe",
 			email: "jdoe001@hostname.com",
 			phoneNum: "1 (800)-123-4567",
-			priv: false,
-			dob: "01/01/1990",
+			priv: true,
+			dob: "01-01-1990",
 			passwrd: "toor"
 		},
 		johns2: {
@@ -24,7 +25,7 @@ export const initialState = {
 			email: "js@white.hl",
 			phoneNum: "1 (800)-123-4568",
 			priv: false,
-			dob: "01/01/1990",
+			dob: "01-01-1990",
 			passwrd: "toor"
 		},
 	}
@@ -48,6 +49,21 @@ const appReducer = (state = initialState, action) =>
 					}
 				} else {
 					draft.curUser = state.users[state.tempUser.username]
+				}
+				break;
+			case ON_ATTEMPT_USER_CHANGE:
+				if(action.payload.req)
+					draft.passwordCheck = {
+						req: true,
+						succ: action.payload.succ,
+					}
+				else {
+					draft.passwordCheck = {
+						req: false,
+						succ: action.payload.succ
+					}
+					draft.users[action.payload.tempUser.id] = action.payload.tempUser
+					draft.curUser = draft.users[action.payload.tempUser.id]
 				}
 				break;
 		}

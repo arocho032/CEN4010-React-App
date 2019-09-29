@@ -16,7 +16,7 @@ function createUserSection(user, props) {
 	if(user == null) {
 		return(
 			<Popup trigger={
-				<Menu.Item name="log-in" content="Login">
+				<Menu.Item name="log-in">
 					<Icon name='user'/>
 					Log In
 				</Menu.Item>

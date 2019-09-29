@@ -12,6 +12,7 @@ import { Segment, Grid, Icon, Card, Menu, Input, Button} from 'semantic-ui-react
 import Banner from 'components/Banner';
 
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import EditProfileModal from './EditProfileModal'
 
 function UserPage(props) {
 	if(props.user == null)
@@ -22,7 +23,7 @@ function UserPage(props) {
 		if(props.curUser && props.curUser.id == props.user.id) {
 			loggedUserViews = (
 				<Grid.Row>
-					<Button>Edit Profile</Button>
+					<EditProfileModal/>
 				</Grid.Row>
 			)
 		} 

@@ -8,6 +8,7 @@ import { connectRouter } from 'connected-react-router';
 import history from 'utils/history';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import sidebarReducer from 'containers/Sidebar/reducer';
+import userpageReducer from 'containers/UserPage/reducer';
 import organizationsReducer from 'containers/OrganizationsPage/reducer';
 import appReducer from 'containers/App/reducer';
 
@@ -19,6 +20,7 @@ export default function createReducer(injectedReducers = {}) {
     language: languageProviderReducer,
     router: connectRouter(history),
     app: appReducer,
+    userpage: userpageReducer, 
     sidebar: sidebarReducer,
     organizations: organizationsReducer,
     ...injectedReducers,
