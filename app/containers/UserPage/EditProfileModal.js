@@ -50,6 +50,7 @@ function createEditProfileModal(props) {
 
 	} else {
 	}
+	// {makeInputField("Name:", "name", props.tempUserChanges.name, props.onHandleChange)}
 	return(
 		<Modal 
 				trigger={<Button onClick={() => props.onOpen(props)}>Edit Profile</Button>}
@@ -63,7 +64,6 @@ function createEditProfileModal(props) {
 					<p>Please input the following information:</p>
 				</Modal.Description>
 				<Form onSubmit={() => props.onSubmit(props.reqPassword, props.tempUserChanges.password, props.curUser.passwrd, props.tempUserChanges)}>
-					{makeInputField("Name:", "name", props.tempUserChanges.name, props.onHandleChange)}
 					{makeInputField("Email:", "email", props.tempUserChanges.email, props.onHandleChange)}
 					{makeInputField("Phone Number:", "phoneNum", props.tempUserChanges.phoneNum, props.onHandleChange)}					
 					<Form.Field>

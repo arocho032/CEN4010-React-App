@@ -23,7 +23,7 @@ export function onInputChange(name, value, checked) {
 		type: ON_CHANGE_TEMP_USER,
 		update: {
 			name: name, 
-			value: value
+			value: checked == null ? value : checked
 		}
 	}
 }

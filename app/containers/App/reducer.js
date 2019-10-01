@@ -15,7 +15,7 @@ export const initialState = {
 			name: "Jane Doe",
 			email: "jdoe001@hostname.com",
 			phoneNum: "1 (800)-123-4567",
-			priv: true,
+			priv: false,
 			dob: "01-01-1990",
 			passwrd: "toor"
 		},
