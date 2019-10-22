@@ -11,8 +11,8 @@ export class MapContainer extends React.Component {
 
     this.state = {
       stores: [
-        { lat: 25.9087, lng: -80.1403 },
-        { latitude: 25.7574, longitude: -80.3733 },
+        { id: 1, latitude: 25.849433, longitude: -80.230454 },
+        { id: 2, latitude: 25.7574, longitude: -80.3733 },
       ],
     };
   }
@@ -20,13 +20,13 @@ export class MapContainer extends React.Component {
   displayMarkers = () =>
     this.state.stores.map((store, index) => (
       <Marker
-        key={Marker.id}
+        key={store.id}
         id={index}
         position={{
           lat: store.latitude,
           lng: store.longitude,
         }}
-        onClick={() => console.log('You clicked me!')}
+        onClick={() => console.log(`You clicked me! ${store.id}`) /* Modify */}
       />
     ));
 
