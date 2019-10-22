@@ -2,9 +2,12 @@ import React from 'react';
 
 import { Container, Segment, Header } from 'semantic-ui-react';
 
+import MapContainer from '../../components/MapContainer';
+
 export default function AboutPage() {
   return (
     <div>
+      <MapContainer />
       <Segment vertical>
         <Container text>
           <br />

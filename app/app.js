@@ -34,7 +34,9 @@ import configureStore from './configureStore';
 import { translationMessages } from './i18n';
 
 // React Bootstrap CSS
-import 'semantic-ui-css/semantic.min.css'
+import 'semantic-ui-css/semantic.min.css';
+
+// For environmental variables such as API keys
 
 // Create redux store with history
 const initialState = {};
