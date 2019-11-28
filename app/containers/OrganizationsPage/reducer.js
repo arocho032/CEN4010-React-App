@@ -11,33 +11,57 @@ export const initialState = {
 	},
 	orgs: [
 		{
+			hostId: 1,
 			name: "Dead Poets Society",
 			desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum, purus pretium ultrices feugiat, elit dolor mattis orci, eu mattis metus nunc et sem. In sed elementum ligula. Maecenas rhoncus pretium massa, hendrerit lobortis enim tristique vel.",
-			img: null, 
+			img: null,
+			members: [ "jdoe001", "johns2" ],
+			roles: {
+				"jdoe001": "createEvent",
+			}
 		},
 		{
+			hostId: 2,
 			name: "YPE",
 			desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum, purus pretium ultrices feugiat, elit dolor mattis orci, eu mattis metus nunc et sem. In sed elementum ligula. Maecenas rhoncus pretium massa, hendrerit lobortis enim tristique vel.",
 			img: null, 
+			members: [ "johns2" ],
+			roles: {
+				"johns2": "createEvent",
+			}
 		},
 		{
+			hostId: 3,
 			name: "ACM",
 			desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum, purus pretium ultrices feugiat, elit dolor mattis orci, eu mattis metus nunc et sem. In sed elementum ligula. Maecenas rhoncus pretium massa, hendrerit lobortis enim tristique vel.",
 			img: null, 
+			members: [ "jdoe001", "johns2" ],
+			roles: {
+				"johns2": "createEvent",
+			}
 		},
 		{
+			hostId: 4,
 			name: "Cinema @ FIU",
 			desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum, purus pretium ultrices feugiat, elit dolor mattis orci, eu mattis metus nunc et sem. In sed elementum ligula. Maecenas rhoncus pretium massa, hendrerit lobortis enim tristique vel.",
 			img: null, 
+			members: [ "jdoe001", "johns2" ],
+			roles: {
+				"jdoe001": "createEvent",
+			}
 		},
 		{
+			hostId: 5,
 			name: "Track & Field Club",
 			desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum, purus pretium ultrices feugiat, elit dolor mattis orci, eu mattis metus nunc et sem. In sed elementum ligula. Maecenas rhoncus pretium massa, hendrerit lobortis enim tristique vel.",
 			img: null, 
+			members: [ "johns2" ],
+			roles: {
+				"johns2": "createEvent",
+			}
 		}
 	]
 };
-
 
 const organizationsReducer = (state = initialState, action) => 
 	produce(state, draft => {

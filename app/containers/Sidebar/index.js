@@ -9,13 +9,14 @@ import { Menu, Ref, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 import { makeSelectSidebarVisibility } from './selectors'
+import { makeSelectCurUser } from '../app/selectors'
 import { sidebarSetVisible } from './actions'
 
 // TODO: Remove the <br> tags and add the padding as css style
 //			Fix the route to profile so it is user-specific
-function createMenuItem(props, name, text, iconName, linkTo) {
+function createMenuItem(props, name, text, iconName, linkTo, key) {
 	return (
-		<Menu.Item name={name} as={Link} to={linkTo} onClick={props.onSidebarHide}>
+		<Menu.Item key={key} name={name} as={Link} to={linkTo} onClick={props.onSidebarHide}>
 			<br/>
 			<Icon name={iconName}/>
 			{text}
@@ -25,15 +26,24 @@ function createMenuItem(props, name, text, iconName, linkTo) {
 }
 
 function Sidebar(props) {
+	console.log(props)
 	const bodyRef = React.useRef();
+
+	const menuItems = []
+	menuItems.push(createMenuItem(props, "Home", "Home", "home", "/", 1))
+	menuItems.push(createMenuItem(props, "Organization", "Organizations", "building", "/org/", 2))
+	menuItems.push(createMenuItem(props, "Events", "Events", "calendar alternate outline", "/events/", 3))
+	if(props.curUser) {
+		menuItems.push(createMenuItem(props, "Profile", "Profile", "address card outline", "/profile/"+props.curUser.id, 4))
+		menuItems.push(createMenuItem(props, "Settings", "Settings", "setting", "/settings/", 5))
+	} else {
+		menuItems.push(createMenuItem(props, "Log In\nRegister", "Log In or Register", "address card outline", "/login", 4))
+	}
+	
 	return(
 		<UISidebar.Pushable as='div'>
 		  <UISidebar as={Menu} animation='overlay' icon='labeled' inverted onHide={props.onSidebarHide} vertical visible={props.isVisible} target={bodyRef} width='thin'>
-		  		{createMenuItem(props, "Home", "Home", "home", "/")}		
-		  		{createMenuItem(props, "Profile", "Profile", "address card outline", "/profile/")}		
-		  		{createMenuItem(props, "Events", "Events", "calendar alternate outline", "/events/")}		
-		  		{createMenuItem(props, "Organization", "Organization", "building", "/org/")}		
-		  		{createMenuItem(props, "Settings", "Settings", "setting", "/settings/")}		
+		  		{menuItems}		
 		  </UISidebar>
 		  <Ref innerRef={bodyRef}>
 	      	  <UISidebar.Pusher>
@@ -52,6 +62,7 @@ Sidebar.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
 	isVisible: makeSelectSidebarVisibility(),
+	curUser: makeSelectCurUser(),
 })
 
 export function mapDispatchToProps(dispatch) {

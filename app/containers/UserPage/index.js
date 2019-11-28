@@ -10,6 +10,8 @@ import { makeSelectCurUser} from '../App/selectors'
 import { Segment, Grid, Icon, Card, Menu, Input, Button} from 'semantic-ui-react'
 
 import Banner from 'components/Banner';
+import EventsView from 'components/EventsView';
+import OrganizationsView from 'components/OrganizationsView'
 
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import EditProfileModal from './EditProfileModal'
@@ -18,7 +20,6 @@ function UserPage(props) {
 	if(props.user == null)
 		return (<NotFoundPage/>) 
 	else {
-
 		var loggedUserViews = (<br/>)
 		if(props.curUser && props.curUser.id == props.user.id) {
 			loggedUserViews = (
@@ -53,9 +54,12 @@ function UserPage(props) {
 							</Grid.Column>
 						</Grid.Row>
 						<Grid.Row columns={1}>
-							<Segment placeholder>
-								Placeholder
-							</Segment>
+							<EventsView header="Attended Events" events={props.events} hasMap={false}/>
+						</Grid.Row>
+						<Grid.Row columns={1}>
+							<Grid.Column>
+								<OrganizationsView header="Member in:" orgs={props.orgs} compact={false} />
+							</Grid.Column>
 						</Grid.Row>
 					</Grid>
 				</Segment>
@@ -68,7 +72,9 @@ function UserPage(props) {
 const mapStateToProps = createStructuredSelector({
 	location: makeSelectLocation(),
 	user: makeSelectUser(),
-	curUser: makeSelectCurUser()
+	curUser: makeSelectCurUser(),
+	orgs: () => [],
+	events: () => [],
 })
 export function mapDispatchToProps(dispatch) {
 	return {

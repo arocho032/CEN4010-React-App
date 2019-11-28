@@ -12,7 +12,6 @@ import { onLoginAttempt, onLoginInputChange, onLogout } from '../App/actions'
 import { sidebarSetVisible } from '../Sidebar/actions'
 
 function createUserSection(user, props) {
-
 	if(user == null) {
 		return(
 			<Popup trigger={

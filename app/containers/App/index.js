@@ -13,6 +13,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
+import OrganizationPage from 'containers/OrganizationPage/Loadable';
 import OrganizationsPage from 'containers/OrganizationsPage/Loadable';
 import UserPage from 'containers/UserPage/Loadable';
 import AboutPage from 'containers/AboutPage/Loadable';
@@ -24,6 +25,7 @@ import Footer from 'components/Footer';
 import Wrapper from 'components/Wrapper';
 
 import GlobalStyle from '../../global-styles';
+import EventsPage from '../EventsPage';
 
 export default function App() {
   return (
@@ -34,6 +36,9 @@ export default function App() {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/org" component={OrganizationsPage} />
+          <Route exact path="/org/:id" component={OrganizationPage} />
+          <Route exact path="/events" component={EventsPage} />
+          {/* <Route exact path="/events/:id" component={OrganizationPage} /> */}
           <Route exact path="/profile/:id" component={UserPage} />
           <Route exact path="/about" component={AboutPage} />
           <Route component={NotFoundPage} />

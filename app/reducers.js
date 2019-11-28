@@ -10,6 +10,7 @@ import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import sidebarReducer from 'containers/Sidebar/reducer';
 import userpageReducer from 'containers/UserPage/reducer';
 import organizationsReducer from 'containers/OrganizationsPage/reducer';
+// import eventReducer from 'container/EventView/reducer';
 import appReducer from 'containers/App/reducer';
 
 /**
@@ -23,6 +24,8 @@ export default function createReducer(injectedReducers = {}) {
     userpage: userpageReducer, 
     sidebar: sidebarReducer,
     organizations: organizationsReducer,
+    // events: eventReducer,
+    // map: 
     ...injectedReducers,
   });
 

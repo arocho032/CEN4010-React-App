@@ -5,13 +5,22 @@ import messages from './messages';
 import { Container, Segment, Header} from 'semantic-ui-react';
 
 import Banner from 'components/Banner';
-import EventView from 'containers/EventView';
+import EventsView from 'components/EventsView';
+
+// import openSocket from'socket.io-client'
+// const socket = openSocket('http://localhost:9000')
 
 export default function HomePage() {
-  return (
+
+	// socket.emit("testevent", "{}")
+	// socket.on("returnevent", ret => {
+	// 	console.log(ret)
+	// })
+
+	return (
   		<div>
   			<Banner header="Student Organization System" subheader="Manage Members, Create Events, and More."/>
-  			<EventView />
+  			<EventsView header="All Events" events={[]} hasMap={true}/>
   			<br/>
   			<br/>
   			<Segment vertical>
@@ -53,5 +62,5 @@ export default function HomePage() {
 	  			</Container>
   			</Segment>
   		</div>
-  );
+  	);
 }

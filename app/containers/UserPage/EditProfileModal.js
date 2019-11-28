@@ -32,9 +32,7 @@ function makeInputField(label, name, value, onChange, isPasswordField) {
 	)
 }
 
-
 function createEditProfileModal(props) {
-	
 	var passField = []
 	console.log(props.reqPassword)
 	if(props.reqPassword != null ) {
