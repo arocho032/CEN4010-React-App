@@ -29,7 +29,6 @@ export function onInputChange(name, value, checked) {
 }
 
 export function requestOrganizations(startIndex, count) {
-	console.log("trace")
 	return {
 		type: 'server/organizationLoadAll',
 		data: {organization: {startIndex: startIndex, count: count}}
@@ -37,7 +36,6 @@ export function requestOrganizations(startIndex, count) {
 }
 
 export function setLoaded(value) {
-	console.log("Trace")	
 	return {
 		type: SET_LOADED,
 		value: value,
