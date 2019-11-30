@@ -18,7 +18,6 @@ const requirementsOptions = [
 ]
 
 function CreateOrganizationModal(props) {
-	console.log(props)
 	if(props.curUser == null)
 		return (<p>Log in to Create Organizations</p>)
 	return(

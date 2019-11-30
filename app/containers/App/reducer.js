@@ -81,7 +81,6 @@ const appReducer = (state = initialState, action) =>
 
 				process.env.CERT = draft.server.cert
 				process.env.OWNPiK = cert.keys.privateKey
-				console.log(process.env)
 
 				break;
 			case ON_LOGOUT:
@@ -98,7 +97,6 @@ const appReducer = (state = initialState, action) =>
 								name: action.user.name, 
 								email: action.user.email,
 								priv: action.user.privacy}		
-				console.log(draft.curUser)
 				break;
 			case ON_ATTEMPT_USER_CHANGE:
 				if(action.payload.req)

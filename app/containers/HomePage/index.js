@@ -1,18 +1,27 @@
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import React, { memo } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
 import { Container, Segment, Header} from 'semantic-ui-react';
 
 import Banner from 'components/Banner';
 import EventsView from 'components/EventsView';
 
-export default function HomePage() {
+import { makeSelectEvents, makeSelectPageState } from './selectors';
+import { requestAllEvents, setPageStateLoaded } from './actions';
+
+function HomePage(props) {
+	if(!props.pageState.isLoaded) {
+		props.setLoaded(true);
+		props.loadEvents(0);
+	}
 
 	return (
   		<div>
   			<Banner header="Student Organization System" subheader="Manage Members, Create Events, and More."/>
-  			<EventsView header="All Events" events={[]} hasMap={true}/>
+  			<EventsView header="All Upcoming Events" events={props.events} hasMap={true}/>
   			<br/>
   			<br/>
   			{/* <Segment vertical>
@@ -56,3 +65,18 @@ export default function HomePage() {
   		</div>
   	);
 }
+
+const mapStateToProps = createStructuredSelector({
+	events: makeSelectEvents(),
+	pageState: makeSelectPageState(),
+})
+
+export function mapDispatchToProps(dispatch) {
+	return {
+		loadEvents:  (startIndex) => dispatch(requestAllEvents(startIndex)),
+		setLoaded:	() => dispatch(setPageStateLoaded(true))
+    };
+}
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+export default compose(withConnect, memo)(HomePage)

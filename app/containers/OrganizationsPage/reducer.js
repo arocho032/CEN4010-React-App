@@ -70,7 +70,6 @@ export const initialState = {
 
 const organizationsReducer = (state = initialState, action) => 
 	produce(state, draft => {
-		console.log(action)
 		switch (action.type) {
 			case "successCreatingOrganization":
 				draft.modalOpen = false;
@@ -84,7 +83,6 @@ const organizationsReducer = (state = initialState, action) =>
 				break;
 			case "updateOrgs":
 				draft.orgs = []
-				console.log(action.org)
 				for(var org of action.org) {
 					draft.orgs.push({organization_id: org.organization_id, name: org.name, desc: org.description, img: null})
 				}
