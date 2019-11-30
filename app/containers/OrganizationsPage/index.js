@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import { Segment, Grid, Image, Card, Menu, Input, Button} from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import {  Menu, Input } from 'semantic-ui-react'
  
 import Banner from 'components/Banner'
 import OrganizationsView from 'components/OrganizationsView'
@@ -16,8 +15,8 @@ import { makeSelectOrganizations, makeSelectPageState } from './selectors.js'
 import { requestOrganizations, setLoaded } from './actions.js'
 
 function OrganizationsPage(props) {
-	console.log(props)
-	if(process.env.CERT && !props.pageState.isLoaded) {
+
+	if(!props.pageState.isLoaded) {
 		props.setLoadedTrue();
 		props.load(0);
 	}

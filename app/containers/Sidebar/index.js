@@ -31,7 +31,7 @@ function Sidebar(props) {
 	const menuItems = []
 	menuItems.push(createMenuItem(props, "Home", "Home", "home", "/", 1))
 	menuItems.push(createMenuItem(props, "Organization", "Organizations", "building", "/org/", 2))
-	menuItems.push(createMenuItem(props, "Events", "Events", "calendar alternate outline", "/events/", 3))
+	// menuItems.push(createMenuItem(props, "Events", "Events", "calendar alternate outline", "/events/", 3))
 	if(props.curUser) {
 		menuItems.push(createMenuItem(props, "Profile", "Profile", "address card outline", "/profile/"+props.curUser.id, 4))
 		menuItems.push(createMenuItem(props, "Settings", "Settings", "setting", "/settings/", 5))

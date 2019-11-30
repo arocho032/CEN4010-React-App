@@ -24,7 +24,7 @@ function LoginPage(props) {
 					<input id="tab-2" type="radio" name="tab" className="sign-up" checked={props.view == "register"} onChange={props.onRegistClick}/><label htmlFor="tab-2" className="tab">Sign Up</label>
 					<div className="login-form">
 						<div className="sign-in-htm">
-							<Form onSubmit={props.onLogin}>
+							<Form onSubmit={() => props.onLogin(props.tempLoginUser)}>
 								<Form.Field as='div' className="group">
 									<label htmlFor="user" className="label">Username</label>
 									<Input 	id="user" 
@@ -123,7 +123,7 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) {
 	return {
 		onHandleChange: (issuer, {name, value}) => dispatch(onLoginInputChange(name, value, issuer)),
-		onLogin: 		() => dispatch(onLoginAttempt()),
+		onLogin: 		(tempUser) => dispatch(onLoginAttempt(tempUser)),
 		onRegister:		(tempRegisUser) => dispatch(onRegistrationAttempt(tempRegisUser)), 
 		onSignupClick:	() => dispatch(onChangeView("signin")),
 		onRegistClick:	() => dispatch(onChangeView("register")) 

@@ -23,7 +23,7 @@ function createUserSection(user, props) {
 				on='click'
 				position='bottom right'
 			>
-				<Form onSubmit={props.onLogin}>
+				<Form onSubmit={() => props.onLogin(props.tempUser)}>
 					<Form.Field>
 						<label>Username</label>
 						<Input 
@@ -88,7 +88,7 @@ export function mapDispatchToProps(dispatch) {
 	return {
 		onChangeSidebarVisibility: () => dispatch(sidebarSetVisible(true)),
 		onHandleChange: (event, {name, value}) => dispatch(onLoginInputChange(name, value)),
-		onLogin: () => dispatch(onLoginAttempt()),
+		onLogin: (user) => dispatch(onLoginAttempt(user)),
 		onLogoutFun: () => dispatch(onLogout())
 	};
 }

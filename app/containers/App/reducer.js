@@ -24,26 +24,7 @@ export const initialState = {
 		confirmpassword: "",
 	},
 	passwordCheck: null,
-	users: {
-		jdoe001: {
-			id: "jdoe001",
-			name: "Jane Doe",
-			email: "jdoe001@hostname.com",
-			phoneNum: "1 (800)-123-4567",
-			priv: false,
-			dob: "01-01-1990",
-			passwrd: "toor"
-		},
-		johns2: {
-			id: "johns2",
-			name: "John Snow",
-			email: "js@white.hl",
-			phoneNum: "1 (800)-123-4568",
-			priv: false,
-			dob: "01-01-1990",
-			passwrd: "toor"
-		},
-	}
+	users: {}
 };
 
 function getCertificate() {
@@ -82,13 +63,9 @@ function getCertificate() {
 	return {cert: cert, keys: keys}
 }
 
-
 const appReducer = (state = initialState, action) => 
 	produce(state, draft => {
 		switch (action.type) {
-			case "TestEvent":
-				console.log(action)
-				break;
 			case ON_HANDSHAKE_REQUEST:
 
 				var forge = require('node-forge');
@@ -116,15 +93,12 @@ const appReducer = (state = initialState, action) =>
 			case ON_CHANGE_RESG_USER:
 				draft.regisUser[action.update.name] = action.update.value 
 				break;	
-			case ON_LOGIN_ATTEMPT:
-				if(state.users[state.tempUser.username] == null) {
-					draft.notification = {
-						title: "Failed Login",
-						desc: "Username or Password not Correct"
-					}
-				} else {
-					draft.curUser = state.users[state.tempUser.username]
-				}
+			case "doLogin":
+				draft.curUser = {id: action.user.user_name, 
+								name: action.user.name, 
+								email: action.user.email,
+								priv: action.user.privacy}		
+				console.log(draft.curUser)
 				break;
 			case ON_ATTEMPT_USER_CHANGE:
 				if(action.payload.req)

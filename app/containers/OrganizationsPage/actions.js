@@ -4,10 +4,10 @@ import {
 	SET_LOADED
 } from './constants';
 
-export function addOrganization(tempOrg) {
+export function addOrganization(tempOrg, curUser) {
 	return {
 		type: "server/organizationCreate",
-		data: {organization: tempOrg}
+		data: {organization: tempOrg, user: curUser}
 	}
 }
 

@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import { makeSelectLocation, makeSelectUser} from './selectors'
+import { makeSelectPageState, makeSelectPageUser } from './selectors'
 import { makeSelectCurUser} from '../App/selectors'
 
-import { Segment, Grid, Icon, Card, Menu, Input, Button} from 'semantic-ui-react'
+import { setLoaded, requestUser } from './actions'
+
+import { Segment, Grid, Icon } from 'semantic-ui-react'
 
 import Banner from 'components/Banner';
 import EventsView from 'components/EventsView';
@@ -17,8 +19,12 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import EditProfileModal from './EditProfileModal'
 
 function UserPage(props) {
+
+	if(props.user == null || (props.user.user_name != props.location.pathname.split('/')[2]))
+		props.load(props.location.pathname.split('/')[2]);
+
 	if(props.user == null)
-		return (<NotFoundPage/>) 
+		return (<NotFoundPage/>)
 	else {
 		var loggedUserViews = (<br/>)
 		if(props.curUser && props.curUser.id == props.user.id) {
@@ -44,7 +50,7 @@ function UserPage(props) {
 							<Grid.Column textAlign='left'> 
 								<Grid.Row>
 									<br/>
-									<span><b>Username: </b>{props.user.id}</span><br/>
+									<span><b>Username: </b>{props.user.user_name}</span><br/>
 									<span><b>Name: </b>{props.user.name}</span><br/>
 									<span><b>Email: </b>{props.user.email}</span><br/>
 									<span><b>Phone Number: </b>{props.user.phoneNum}</span><br/>
@@ -70,15 +76,16 @@ function UserPage(props) {
 }
 
 const mapStateToProps = createStructuredSelector({
-	location: makeSelectLocation(),
-	user: makeSelectUser(),
 	curUser: makeSelectCurUser(),
+	user: makeSelectPageUser(),
+	pageState: makeSelectPageState(),
 	orgs: () => [],
 	events: () => [],
 })
 export function mapDispatchToProps(dispatch) {
 	return {
-		none: () => null
+		load: (username) => dispatch(requestUser(username)),
+		setLoadedTrue: () => dispatch(setLoaded(true))
 	};
 }
 

@@ -3,18 +3,20 @@ import {
 	MODAL_LOAD,
 	MODAL_CLOSE, 
 	ON_CHANGE_TEMP_USER,
-	ON_ATTEMPT_USER_CHANGE
+	SET_LOADED
 } from './constants'
 
 export const initialState = {
-	modalOpen: false,
+	pageState: {
+		isLoaded: false,
+		modalOpen: false
+	},
+	pageValues: null,
 	tempUserChanges: {
 			id: "",
 			name: "",
 			email: "",
-			phoneNum: "",
 			priv: null,
-			dob: "",
 			password: ""
 		},
 }
@@ -22,6 +24,12 @@ export const initialState = {
 const userpageReducer = (state = initialState, action) => 
 	produce(state, draft => {
 		switch (action.type) {
+			case "successfulUserloaded":
+				draft.pageValues = {...action.user}
+				break;
+			case SET_LOADED:
+				draft.pageState.isLoaded = action.value
+				break;
 			case MODAL_LOAD:
 				draft.modalOpen = true;
 				draft.tempUserChanges = action.payload

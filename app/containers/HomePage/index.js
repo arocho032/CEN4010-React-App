@@ -15,7 +15,7 @@ export default function HomePage() {
   			<EventsView header="All Events" events={[]} hasMap={true}/>
   			<br/>
   			<br/>
-  			<Segment vertical>
+  			{/* <Segment vertical>
 	  			<Container text>
 	  				<Header as='h2' content="Funtionalities"/>
 	 				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -52,7 +52,7 @@ export default function HomePage() {
 	 				Suspendisse consequat lorem nisi, vitae luctus purus tristique a.
 	 				Cras rutrum suscipit sapien ut lobortis.   
 	  			</Container>
-  			</Segment>
+  			</Segment> */}
   		</div>
   	);
 }

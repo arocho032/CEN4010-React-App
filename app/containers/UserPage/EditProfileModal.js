@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import { Segment, Modal, Header, Form, Input, Button, Image, Checkbox, Dropdown } from 'semantic-ui-react'
+import { Modal, Header, Form, Input, Button, Image, Checkbox, Dropdown } from 'semantic-ui-react'
 import { DateInput } from 'semantic-ui-calendar-react'
 
 import { makeSelectModalOpen, makeSelectTempUserChanges } from './selectors'

@@ -1,7 +1,8 @@
 import {
 	MODAL_LOAD,
 	MODAL_CLOSE,
-	ON_CHANGE_TEMP_USER
+	ON_CHANGE_TEMP_USER,
+	SET_LOADED
 } from './constants.js'
 
 
@@ -15,6 +16,20 @@ export function modalLoad(curUser) {
 export function modalKill() {
 	return {
 		type: MODAL_CLOSE
+	}
+}
+
+export function setLoaded(value) {
+	return {
+		type: SET_LOADED,
+		value: value
+	}
+}
+
+export function requestUser(username) {
+	return {
+		type: "server/userLoadUser",
+		data: {user: {username: username}}
 	}
 }
 

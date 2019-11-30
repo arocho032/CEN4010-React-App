@@ -80,9 +80,15 @@ const organizationsReducer = (state = initialState, action) =>
 						requirements: true, 
 						privacy: "PUBLIC",
 					}
-
-			// draft.orgs.push({name: state.tempOrg.name, desc: state.tempOrg.desc, img: null})
+				draft.pageState.isLoaded = false;
 				break;
+			case "updateOrgs":
+				draft.orgs = []
+				console.log(action.org)
+				for(var org of action.org) {
+					draft.orgs.push({organization_id: org.organization_id, name: org.name, desc: org.description, img: null})
+				}
+				break
 			case SET_LOADED:
 				draft.pageState.isLoaded = action.value
 				break;

@@ -18,6 +18,7 @@ const requirementsOptions = [
 ]
 
 function CreateOrganizationModal(props) {
+	console.log(props)
 	if(props.curUser == null)
 		return (<p>Log in to Create Organizations</p>)
 	return(
@@ -31,7 +32,7 @@ function CreateOrganizationModal(props) {
 				<Modal.Description>
 					<Header>Organization Details</Header>
 					<p>Please input the following information about your organization:</p>
-					<Form onSubmit={() => props.onSubmit(props.tempOrg)}>
+					<Form onSubmit={() => props.onSubmit(props.tempOrg, props.curUser.id)}>
 						<Form.Field>
 							<label>Name:</label>
 							<Input 
@@ -90,7 +91,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch, ownProps) {
 	return {
-		onSubmit: (values) => dispatch(addOrganization(values)),
+		onSubmit: (tempOrg, curUser) => dispatch(addOrganization(tempOrg, curUser)),
 		onClose:  () => dispatch(modalStateOpen(false)),
 		onOpen:   () => dispatch(modalStateOpen(true)),
 		onHandleChange: (e, {name, value, checked}) => dispatch(onInputChange(name, value, checked)),

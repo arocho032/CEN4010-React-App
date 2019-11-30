@@ -9,6 +9,7 @@ import history from 'utils/history';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import sidebarReducer from 'containers/Sidebar/reducer';
 import userpageReducer from 'containers/UserPage/reducer';
+import orgpageReducer from 'containers/OrganizationPage/reducer';
 import organizationsReducer from 'containers/OrganizationsPage/reducer';
 import loginReducer from 'containers/LoginPage/reducer';
 import appReducer from 'containers/App/reducer';
@@ -22,6 +23,7 @@ export default function createReducer(injectedReducers = {}) {
     router: connectRouter(history),
     app: appReducer,
     userpage: userpageReducer, 
+    orgpage: orgpageReducer,
     sidebar: sidebarReducer,
     organizations: organizationsReducer,
     login: loginReducer,

@@ -7,9 +7,10 @@ import {
 	ON_CHANGE_RESG_USER
 } from './constants';
 
-export function onLoginAttempt() {
+export function onLoginAttempt(tempUser) {
 	return {
-		type: ON_LOGIN_ATTEMPT,
+		type: "server/userLogin",
+		data: {user: tempUser}
 	}
 }
 
