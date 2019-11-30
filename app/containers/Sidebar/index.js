@@ -26,7 +26,6 @@ function createMenuItem(props, name, text, iconName, linkTo, key) {
 }
 
 function Sidebar(props) {
-	console.log(props)
 	const bodyRef = React.useRef();
 
 	const menuItems = []

@@ -2,7 +2,9 @@ import {
 	ON_LOGIN_ATTEMPT,
 	ON_CHANGE_TEMP_USER,
 	ON_LOGOUT,
-	ON_ATTEMPT_USER_CHANGE
+	ON_ATTEMPT_USER_CHANGE,
+	ON_REGISTRATION_ATTEMPT,
+	ON_CHANGE_RESG_USER
 } from './constants';
 
 export function onLoginAttempt() {
@@ -11,13 +13,29 @@ export function onLoginAttempt() {
 	}
 }
 
+export function onRegistrationAttempt(registerUser) {
+	return {
+		type: "server/userRegister",
+		data: {user: registerUser}
+	}
+}
+
+
 export function onLogout() {
 	return {
 		type: ON_LOGOUT,
 	}	
 }
 
-export function onLoginInputChange(name, value) {
+export function onLoginInputChange(name, value, issuer) {
+	if(issuer && issuer == "register")
+		return {
+			type: ON_CHANGE_RESG_USER,
+			update: {
+					name: name,
+					value: value
+				}
+			}
 	return {
 		type: ON_CHANGE_TEMP_USER,
 		update: {

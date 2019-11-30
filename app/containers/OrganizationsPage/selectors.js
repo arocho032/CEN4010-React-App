@@ -1,9 +1,17 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
+import { selectUser } from '../app/selectors';
+
 const selectOrganizations = state => {
 	return state.organizations || initialState;
 }
+
+const makeSelectPageState = () => 
+	createSelector(
+		selectOrganizations, 
+		orgs => orgs.pageState
+	)
 
 const makeSelectOrganizations = () =>
 	createSelector(
@@ -20,7 +28,10 @@ const makeSelectModalOpen = () =>
 const makeSelectTempOrg = () => 
 	createSelector(
 		selectOrganizations,
-		orgs => orgs.tempOrg
+		selectUser,
+		(orgs, curUser) => {
+			return {...orgs.tempOrg, user: curUser == null ? null : curUser.id}
+		}
 	)
 
-export { selectOrganizations, makeSelectOrganizations, makeSelectModalOpen, makeSelectTempOrg}
+export { makeSelectPageState, selectOrganizations, makeSelectOrganizations, makeSelectModalOpen, makeSelectTempOrg}

@@ -91,13 +91,11 @@ const LoginWrapper = styled(Segment)`
     margin-bottom: 15px;
   }
   .login-form .group .label,
-  .login-form .group .input,
   .login-form .group .button {
     width: 100%;
     color: #fff;
     display: block;
   }
-  .login-form .group .input,
   .login-form .group .button {
     border: none;
     padding: 15px 20px;

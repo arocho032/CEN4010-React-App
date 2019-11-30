@@ -42,6 +42,7 @@ function createUserSection(user, props) {
 						/>
 					</Form.Field>
 					<Button type='submit'>Login</Button>
+					<Button as={Link} to={encodeURI("/login")}>Register</Button>
 				</Form>
 			</Popup>
 		)
@@ -53,9 +54,7 @@ function createUserSection(user, props) {
 			</Menu.Item>
 		)
 		items.push(
-			<Menu.Item key={2}>
-				<Button onClick={props.onLogoutFun}>Logout</Button>
-			</Menu.Item>
+			<Menu.Item onClick={props.onLogoutFun} key={2}>Logout</Menu.Item>
 		)
 		return items
 	}

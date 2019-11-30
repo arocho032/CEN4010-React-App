@@ -7,15 +7,7 @@ import { Container, Segment, Header} from 'semantic-ui-react';
 import Banner from 'components/Banner';
 import EventsView from 'components/EventsView';
 
-// import openSocket from'socket.io-client'
-// const socket = openSocket('http://localhost:9000')
-
 export default function HomePage() {
-
-	// socket.emit("testevent", "{}")
-	// socket.on("returnevent", ret => {
-	// 	console.log(ret)
-	// })
 
 	return (
   		<div>

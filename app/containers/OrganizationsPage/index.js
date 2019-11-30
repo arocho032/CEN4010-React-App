@@ -12,9 +12,16 @@ import OrganizationsView from 'components/OrganizationsView'
 
 import CreateOrganizationModal from './CreateOrganizationModal'
 
-import { makeSelectOrganizations } from './selectors.js'
+import { makeSelectOrganizations, makeSelectPageState } from './selectors.js'
+import { requestOrganizations, setLoaded } from './actions.js'
 
 function OrganizationsPage(props) {
+	console.log(props)
+	if(process.env.CERT && !props.pageState.isLoaded) {
+		props.setLoadedTrue();
+		props.load(0);
+	}
+
 	return(
 		<div>
   			<Banner header="Organizations" compact={true}/>
@@ -36,10 +43,14 @@ function OrganizationsPage(props) {
 
 const mapStateToProps = createStructuredSelector({
 	orgs: makeSelectOrganizations(),
+	pageState: makeSelectPageState(),
 })
 
 export function mapDispatchToProps(dispatch) {
-	return {};
+	return {
+		load: (index) => dispatch(requestOrganizations(index, 20)),
+		setLoadedTrue: () => dispatch(setLoaded(true))
+	};
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

@@ -1,12 +1,13 @@
 import { 
-	ADD_ORGANIZATION, 
 	MODAL_STATE,
-	ON_CHANGE_TEMP_ORG
+	ON_CHANGE_TEMP_ORG,
+	SET_LOADED
 } from './constants';
 
-export function addOrganization(preProsOrgDetails) {
+export function addOrganization(tempOrg) {
 	return {
-		type: ADD_ORGANIZATION,
+		type: "server/organizationCreate",
+		data: {organization: tempOrg}
 	}
 }
 
@@ -22,8 +23,23 @@ export function onInputChange(name, value, checked) {
 		type: ON_CHANGE_TEMP_ORG,
 		update: {
 			name: name,
-			value: name == 'priv' ? checked : value
-
+			value: name == 'privacy' ? checked ? "PRIVATE" : "PUBLIC" : value
 		}
+	}
+}
+
+export function requestOrganizations(startIndex, count) {
+	console.log("trace")
+	return {
+		type: 'server/organizationLoadAll',
+		data: {organization: {startIndex: startIndex, count: count}}
+	}
+}
+
+export function setLoaded(value) {
+	console.log("Trace")	
+	return {
+		type: SET_LOADED,
+		value: value,
 	}
 }

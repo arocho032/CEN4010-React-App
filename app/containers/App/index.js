@@ -7,8 +7,11 @@
  *
  */
 
-import React from 'react';
+import React, { memo } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -17,6 +20,8 @@ import OrganizationPage from 'containers/OrganizationPage/Loadable';
 import OrganizationsPage from 'containers/OrganizationsPage/Loadable';
 import UserPage from 'containers/UserPage/Loadable';
 import AboutPage from 'containers/AboutPage/Loadable';
+import EventsPage from 'containers/EventsPage/Loadable';
+import EventPage from 'containers/EventPage/Loadable';
 
 import Sidebar from 'containers/Sidebar';
 import Topbar from 'containers/Topbar';
@@ -25,9 +30,17 @@ import Footer from 'components/Footer';
 import Wrapper from 'components/Wrapper';
 
 import GlobalStyle from '../../global-styles';
-import EventsPage from '../EventsPage';
 
-export default function App() {
+import { makeSelectSocketStatus } from './selectors';
+
+function App(props) {
+
+  // Alternative View if Backend is not connected. 
+  // if(!props.serverStatus)
+  //   return (
+  //     <p>Error, Backend is not connected or not working.</p>
+  //   )
+
   return (
     <Sidebar>
       <Topbar />
@@ -38,7 +51,7 @@ export default function App() {
           <Route exact path="/org" component={OrganizationsPage} />
           <Route exact path="/org/:id" component={OrganizationPage} />
           <Route exact path="/events" component={EventsPage} />
-          {/* <Route exact path="/events/:id" component={OrganizationPage} /> */}
+          <Route exact path="/events/:id" component={EventPage} />
           <Route exact path="/profile/:id" component={UserPage} />
           <Route exact path="/about" component={AboutPage} />
           <Route component={NotFoundPage} />
@@ -49,3 +62,13 @@ export default function App() {
     </Sidebar>
   );
 }
+
+const mapStateToProps = createStructuredSelector({
+    serverStatus: makeSelectSocketStatus(),
+})
+export function mapDispatchToProps(dispatch) {
+  return {}
+}
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+export default compose(withConnect, memo)(App)

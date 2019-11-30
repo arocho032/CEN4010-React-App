@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "7.4.3",
+    "@fidm/x509": "^1.2.1",
     "bootstrap": "^4.3.1",
     "chalk": "^2.4.2",
     "compression": "1.7.4",
@@ -81,6 +82,7 @@
     "ip": "1.1.5",
     "lodash": "4.17.13",
     "minimist": "1.2.0",
+    "node-forge": "^0.9.1",
     "prop-types": "15.7.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
@@ -90,6 +92,7 @@
     "react-router-dom": "5.0.0",
     "redux": "4.0.1",
     "redux-saga": "1.0.2",
+    "redux-socket.io": "^1.4.0",
     "reselect": "4.0.0",
     "sanitize.css": "8.0.0",
     "semantic-ui-calendar-react": "^0.15.3",

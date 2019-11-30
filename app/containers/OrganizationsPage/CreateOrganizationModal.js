@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import { Segment, Modal, Header, Form, Input, Button, Image, Checkbox, Dropdown } from 'semantic-ui-react'
+import { Modal, Header, Form, Input, Button, Image, Checkbox, Dropdown } from 'semantic-ui-react'
 
 import default_image from './gc-1.jpg'
 
 import { makeSelectModalOpen, makeSelectTempOrg} from './selectors'
 import { addOrganization, modalStateOpen, onInputChange } from './actions'
+import { makeSelectCurUser } from '../App/selectors';
 
 const requirementsOptions = [
 	{key:'none', text:'None.', value:'none'},
@@ -17,9 +18,10 @@ const requirementsOptions = [
 ]
 
 function CreateOrganizationModal(props) {
+	if(props.curUser == null)
+		return (<p>Log in to Create Organizations</p>)
 	return(
-		<Modal 
-				trigger={<Button onClick={props.onOpen}>Create New Organization</Button>}
+		<Modal  trigger={<Button onClick={props.onOpen}>Create New Organization</Button>}
 				open={props.modalOpen}
 				onClose={props.onClose}
 			>
@@ -29,7 +31,7 @@ function CreateOrganizationModal(props) {
 				<Modal.Description>
 					<Header>Organization Details</Header>
 					<p>Please input the following information about your organization:</p>
-					<Form onSubmit={props.onSubmit}>
+					<Form onSubmit={() => props.onSubmit(props.tempOrg)}>
 						<Form.Field>
 							<label>Name:</label>
 							<Input 
@@ -42,8 +44,8 @@ function CreateOrganizationModal(props) {
 						<Form.Field>
 							<label>Description:</label>
 							<Input 
-								name="desc"
-								value={props.tempOrg.desc} 
+								name="description"
+								value={props.tempOrg.description} 
 								onChange={props.onHandleChange}
 								placeholder="What your organization does..." 
 							/>
@@ -55,16 +57,16 @@ function CreateOrganizationModal(props) {
 								onChange={props.onHandleChange}
 								options={requirementsOptions}
 								placeholder="Select..."
-								value={props.tempOrg.req}
-								name="req"
+								value={props.tempOrg.requirements}
+								name="requirements"
 					            selection
 							/>
 						</Form.Field>
 						<Form.Field>
 							<label>Privacy Settings:</label>
 							<Checkbox 
-								name="priv"
-								checked={props.tempOrg.priv}
+								name="privacy"
+								checked={props.tempOrg.privacy == "PRIVATE"}
 								label="Make my Organization Private."
 								onChange={props.onHandleChange}
 							/>
@@ -82,14 +84,15 @@ function CreateOrganizationModal(props) {
 
 const mapStateToProps = createStructuredSelector({
 	modalOpen: makeSelectModalOpen(),
-	tempOrg: makeSelectTempOrg()
+	tempOrg: makeSelectTempOrg(),
+	curUser: makeSelectCurUser(),
 })
 
-export function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch, ownProps) {
 	return {
-		onSubmit: () => dispatch(addOrganization()),
-		onClose: () => dispatch(modalStateOpen(false)),
-		onOpen: () => dispatch(modalStateOpen(true)),
+		onSubmit: (values) => dispatch(addOrganization(values)),
+		onClose:  () => dispatch(modalStateOpen(false)),
+		onOpen:   () => dispatch(modalStateOpen(true)),
 		onHandleChange: (e, {name, value, checked}) => dispatch(onInputChange(name, value, checked)),
 	};
 }

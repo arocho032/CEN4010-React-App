@@ -5,7 +5,12 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
+import createSocketIoMiddleware from 'redux-socket.io';
+import createSocketMiddleware from 'utils/createSocketMiddleware.js'
 import createReducer from './reducers';
+
+import io from 'socket.io-client';
+import openSocket from 'socket.io-client'
 
 export default function configureStore(initialState = {}, history) {
   let composeEnhancers = compose;
@@ -29,10 +34,13 @@ export default function configureStore(initialState = {}, history) {
 
   const sagaMiddleware = createSagaMiddleware(reduxSagaMonitorOptions);
 
+  let socket = io("http://"+process.env.SOCKET_URL)
+  const socketioMiddleware = createSocketMiddleware(socket, "server/")
+
   // Create the store with two middlewares
   // 1. sagaMiddleware: Makes redux-sagas work
   // 2. routerMiddleware: Syncs the location/URL path to the state
-  const middlewares = [sagaMiddleware, routerMiddleware(history)];
+  const middlewares = [sagaMiddleware, socketioMiddleware, routerMiddleware(history)];
 
   const enhancers = [applyMiddleware(...middlewares)];
 
@@ -46,6 +54,8 @@ export default function configureStore(initialState = {}, history) {
   store.runSaga = sagaMiddleware.run;
   store.injectedReducers = {}; // Reducer registry
   store.injectedSagas = {}; // Saga registry
+  // store.subscribe(() => console.log(store.getState()))
+  // store.dispatch({type:"publicKeyShare", data:"somethingelse"})
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */
