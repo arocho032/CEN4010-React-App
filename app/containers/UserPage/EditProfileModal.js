@@ -7,10 +7,10 @@ import { createStructuredSelector } from 'reselect';
 import { Modal, Header, Form, Input, Button, Image, Checkbox, Dropdown } from 'semantic-ui-react'
 import { DateInput } from 'semantic-ui-calendar-react'
 
-import { makeSelectModalOpen, makeSelectTempUserChanges } from './selectors'
+import { makeSelectModalOpen, makeSelectTempUserChanges, makeSelectPageState } from './selectors'
 import { modalLoad, modalKill, onInputChange, } from './actions'
 
-import { makeSelectCurUser, makeSelectPasswordField} from '../App/selectors'
+import { makeSelectCurUser, makeSelectPasswordField } from '../App/selectors'
 import { attemptUserChange } from '../App/actions'
 
 const requirementsOptions = [
@@ -33,25 +33,20 @@ function makeInputField(label, name, value, onChange, isPasswordField) {
 }
 
 function createEditProfileModal(props) {
+	
 	var passField = []
-	if(props.reqPassword != null ) {
-		if(props.reqPassword.succ != null) {
-			if(props.reqPassword.succ) 
-				passField.push(<p>Changes have been applied<br/></p>)
-			else
-				passField.push(<p>Wrong Password, Try again:<br/></p>)
-		}
-		if(props.reqPassword.req) {
-			passField.push(makeInputField("Confirm your Password:", "password", props.tempUserChanges.password, props.onHandleChange, true))
-		}
-
-	} else {
+	if(props.pageState.attempted) {
+		if(!props.pageState.passwirdError) 
+			passField.push(<p>Changes have been applied<br/></p>)
+		else
+			passField.push(<p>Wrong Password, Try again:<br/></p>)
 	}
-	// {makeInputField("Name:", "name", props.tempUserChanges.name, props.onHandleChange)}
+	passField.push(makeInputField("Confirm your Password:", "password", props.tempUserChanges.password, props.onHandleChange, true))
+
 	return(
 		<Modal 
-				trigger={<Button onClick={() => props.onOpen(props)}>Edit Profile</Button>}
-				open={props.modalOpen}
+				trigger={<Button onClick={() => props.onOpen(props.curUser)}>Edit Profile</Button>}
+				open={props.pageState.modalOpen}
 				onClose={props.onClose}
 			>
 			<Modal.Header>Edit Profile Form</Modal.Header>
@@ -60,7 +55,7 @@ function createEditProfileModal(props) {
 					<Header>Profile Details</Header>
 					<p>Please input the following information:</p>
 				</Modal.Description>
-				<Form onSubmit={() => props.onSubmit(props.reqPassword, props.tempUserChanges.password, props.curUser.passwrd, props.tempUserChanges)}>
+				<Form onSubmit={() => props.onSubmit(props.tempUserChanges.password, props.curUser.numId, props.tempUserChanges)}>
 					{makeInputField("Email:", "email", props.tempUserChanges.email, props.onHandleChange)}
 					{makeInputField("Phone Number:", "phoneNum", props.tempUserChanges.phoneNum, props.onHandleChange)}					
 					<Form.Field>
@@ -95,18 +90,18 @@ const mapStateToProps = createStructuredSelector({
 	modalOpen: makeSelectModalOpen(),
 	tempUserChanges: makeSelectTempUserChanges(),
 	curUser: makeSelectCurUser(),
-	reqPassword: makeSelectPasswordField()
+	reqPassword: makeSelectPasswordField(),
+	pageState: makeSelectPageState()
 })
 
 export function mapDispatchToProps(dispatch) {
 	return {
 		onClose: () => dispatch(modalKill()),
-		onOpen: ({modalOpen, tempUserChanges, curUser}) => dispatch(modalLoad(curUser)),
+		onOpen: (curUser) => dispatch(modalLoad(curUser)),
 		onHandleChange: (e, {name, value, checked}) => dispatch(onInputChange(name, value, checked)),
-		onSubmit: (checkPassword, password, curPassword, tempUserChanges) => dispatch(attemptUserChange(checkPassword, password, curPassword, tempUserChanges))
+		onSubmit: (password, user_id, tempUserChanges) => dispatch(attemptUserChange(password, user_id, tempUserChanges))
 	};
 }
-		// onSubmit: () => null,//dispatch(addOrganization()),
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 

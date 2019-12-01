@@ -93,7 +93,9 @@ const appReducer = (state = initialState, action) =>
 				draft.regisUser[action.update.name] = action.update.value 
 				break;	
 			case "doLogin":
-				draft.curUser = {id: action.user.user_name, 
+				draft.curUser = {
+								id: action.user.user_name, 
+								numId: action.user.user_id,
 								name: action.user.name, 
 								email: action.user.email,
 								priv: action.user.privacy}		

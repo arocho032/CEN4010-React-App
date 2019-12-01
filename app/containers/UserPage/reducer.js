@@ -9,9 +9,12 @@ import {
 export const initialState = {
 	pageState: {
 		isLoaded: false,
-		modalOpen: false
+		modalOpen: false,
+		passwordError: false,
+		attempted: false,
 	},
 	pageValues: null,
+	orgs: [],
 	tempUserChanges: {
 			id: "",
 			name: "",
@@ -27,15 +30,22 @@ const userpageReducer = (state = initialState, action) =>
 			case "successfulUserloaded":
 				draft.pageValues = {...action.user}
 				break;
+			case "successOrgForUserLoaded":
+				draft.orgs = [...action.values]
+				break;
+			case "errorIncorrectPasswordEditProfile":
+				draft.pageState.attempted = true;
+				draft.pageState.passwordError = true
+				break;
 			case SET_LOADED:
 				draft.pageState.isLoaded = action.value
 				break;
 			case MODAL_LOAD:
-				draft.modalOpen = true;
+				draft.pageState.modalOpen = true;
 				draft.tempUserChanges = action.payload
 				break;
 			case MODAL_CLOSE:
-				draft.modalOpen = false
+				draft.pageState.modalOpen = false
 				draft.tempUser = initialState['tempUserChanges']
 				break;
 			case ON_CHANGE_TEMP_USER:

@@ -26,13 +26,6 @@ export function setLoaded(value) {
 	}
 }
 
-export function requestUser(username) {
-	return {
-		type: "server/userLoadUser",
-		data: {user: {username: username}}
-	}
-}
-
 export function onInputChange(name, value, checked) {
 	return {
 		type: ON_CHANGE_TEMP_USER,
@@ -40,5 +33,20 @@ export function onInputChange(name, value, checked) {
 			name: name, 
 			value: checked == null ? value : checked
 		}
+	}
+}
+
+export function requestUser(username) {
+	return {
+		type: "server/userLoadUser",
+		data: {user: {username: username}}
+	}
+}
+
+export function loadOrganizations(userid) {
+	console.log(userid)
+	return {
+		type: "server/organizationLoadByUser",
+		data: {user_id: userid}
 	}
 }

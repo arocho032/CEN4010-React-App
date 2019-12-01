@@ -46,26 +46,10 @@ export function onLoginInputChange(name, value, issuer) {
 	}
 }
 
-export function attemptUserChange(checkPassword, password, curPassword, tempUser) {
-	var payload = {}
-	if(checkPassword == null)
-		payload = {
-			req: true,
-			succ: null
-		}
-	else if (password == curPassword) 
-		payload = {
-			req: false,
-			succ: true,
-			tempUser: tempUser
-		}
-	else 
-		payload = {
-			req: true,
-			succ: false
-		}
+export function attemptUserChange(password, user_id, tempUser) {
 	return {
-		type: ON_ATTEMPT_USER_CHANGE,
-		payload: payload
+		type: "server/userUpdateProfile",
+		data: {user_id: user_id, update: tempUser, password: password}
 	}
+	
 }

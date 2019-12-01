@@ -12,13 +12,19 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import { makeSelectCurUser } from '../App/selectors'
 import { makeSelectPageState, makeSelectPageOrg, makeSelectEvents, makeSelectMembers } from './selectors';
-import { requestOrganization, requestEvents, requestMembers, joinOrganization} from './actions'
+import { requestOrganization, requestEvents, requestMembers, joinOrganization, setPageStateLoaded } from './actions'
 
 import { Menu } from 'semantic-ui-react';
 
 function OrganizationPage(props) {
     
-    console.log(props)
+	if(!props.pageState.isLoaded) {
+        props.load(props.location.pathname.split('/')[2])
+        props.loadMembers(props.location.pathname.split('/')[2], 0)
+        props.loadEvents(props.location.pathname.split('/')[2], 0)
+        props.setLoaded(true);
+	}        
+
     if(props.org == null || (props.org.organization_id.toString() != props.location.pathname.split('/')[2])) {
         props.load(props.location.pathname.split('/')[2])
         props.loadMembers(props.location.pathname.split('/')[2], 0)
@@ -37,7 +43,7 @@ function OrganizationPage(props) {
         } else if (props.curUser && props.members.filter(member => member.user_name == props.curUser.id).length == 0) {
             loggedUserView = (
                 <Menu secondary>
-                    <Menu.Item onClick={() => props.doJoinOrganization(props.curUser.id, props.org.organization_id)}>Join this Organization</Menu.Item>
+                    <Menu.Item onClick={() => props.doJoinOrganization(props.curUser.numId, props.org.organization_id)}>Join this Organization</Menu.Item>
                 </Menu>
             )
         }
@@ -63,11 +69,11 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
 	return {
+		setLoaded:	() => dispatch(setPageStateLoaded(true)),
         load: (organization_id) => dispatch(requestOrganization(organization_id)),
         loadMembers:  (organization_id, startIndex) => dispatch(requestMembers(organization_id, startIndex)),
         loadEvents:  (organization_id, startIndex) => dispatch(requestEvents(organization_id, startIndex)),
-        setLoadedTrue: () => dispatch(setLoaded(true)),
-        doJoinOrganization: (username, orgId) => dispatch(joinOrganization(username, orgId)),
+        doJoinOrganization: (userid, orgId) => dispatch(joinOrganization(userid, orgId)),
     };
 }
 

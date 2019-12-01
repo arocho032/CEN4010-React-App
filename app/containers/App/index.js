@@ -20,7 +20,6 @@ import OrganizationPage from 'containers/OrganizationPage/Loadable';
 import OrganizationsPage from 'containers/OrganizationsPage/Loadable';
 import UserPage from 'containers/UserPage/Loadable';
 import AboutPage from 'containers/AboutPage/Loadable';
-import EventsPage from 'containers/EventsPage/Loadable';
 import EventPage from 'containers/EventPage/Loadable';
 
 import Sidebar from 'containers/Sidebar';
@@ -50,8 +49,7 @@ function App(props) {
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/org" component={OrganizationsPage} />
           <Route exact path="/org/:id" component={OrganizationPage} />
-          <Route exact path="/events" component={EventsPage} />
-          <Route exact path="/events/:id" component={EventPage} />
+          <Route exact path="/event/:id" component={EventPage} />
           <Route exact path="/profile/:id" component={UserPage} />
           <Route exact path="/about" component={AboutPage} />
           <Route component={NotFoundPage} />

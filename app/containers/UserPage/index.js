@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import { makeSelectPageState, makeSelectPageUser } from './selectors'
+import { makeSelectPageState, makeSelectPageUser, makeSelectOrgs, makeSelectEvents } from './selectors'
 import { makeSelectCurUser} from '../App/selectors'
 
-import { setLoaded, requestUser } from './actions'
+import { setLoaded, requestUser, loadOrganizations } from './actions'
 
 import { Segment, Grid, Icon } from 'semantic-ui-react'
 
@@ -20,14 +20,24 @@ import EditProfileModal from './EditProfileModal'
 
 function UserPage(props) {
 
-	if(props.user == null || (props.user.user_name != props.location.pathname.split('/')[2]))
+	if(!props.pageState.isLoaded 
+		|| (props.user == null || (props.user.user_name != props.location.pathname.split('/')[2]))) {
 		props.load(props.location.pathname.split('/')[2]);
+		if(props.user != null) {
+			props.onLoadOrganizations(props.user.user_id)
+			props.setLoadedTrue();	
+		}
+	}
+	
+
+
+	console.log(props)
 
 	if(props.user == null)
 		return (<NotFoundPage/>)
 	else {
 		var loggedUserViews = (<br/>)
-		if(props.curUser && props.curUser.id == props.user.id) {
+		if(props.curUser && props.curUser.id == props.user.user_name) {
 			loggedUserViews = (
 				<Grid.Row>
 					<EditProfileModal/>
@@ -60,9 +70,6 @@ function UserPage(props) {
 							</Grid.Column>
 						</Grid.Row>
 						<Grid.Row columns={1}>
-							<EventsView header="Attended Events" events={props.events} hasMap={false}/>
-						</Grid.Row>
-						<Grid.Row columns={1}>
 							<Grid.Column>
 								<OrganizationsView header="Member in:" orgs={props.orgs} compact={false} />
 							</Grid.Column>
@@ -79,13 +86,13 @@ const mapStateToProps = createStructuredSelector({
 	curUser: makeSelectCurUser(),
 	user: makeSelectPageUser(),
 	pageState: makeSelectPageState(),
-	orgs: () => [],
-	events: () => [],
+	orgs: makeSelectOrgs(),
 })
 export function mapDispatchToProps(dispatch) {
 	return {
 		load: (username) => dispatch(requestUser(username)),
-		setLoadedTrue: () => dispatch(setLoaded(true))
+		setLoadedTrue: () => dispatch(setLoaded(true)),
+		onLoadOrganizations: (user_id) => dispatch(loadOrganizations(user_id))
 	};
 }
 

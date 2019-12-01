@@ -2,8 +2,10 @@ import produce from 'immer'
 
 import {
     MODAL_STATE,
+    SET_LOADED,
     ON_CHANGE_VALUE,
     ON_HANDLE_MAP_CLICK,
+    ON_MATRIX_CHANGE
 } from './constants'
 
 export const initialState = {
@@ -31,7 +33,7 @@ export const initialState = {
     },
     tempGrantRole: {
         targetUser: "",
-        targetPriv: "",
+        values: [ false, false, false, false, false ]
     },
     tempCancelEvent: {
         eventID: ""
@@ -40,6 +42,7 @@ export const initialState = {
 
 const orgpageReducer = (state = initialState, action) => 
     produce(state, draft => {
+        console.log(action)
         switch (action.type) {
             case ON_HANDLE_MAP_CLICK:
                 draft.tempEventCoor.latitude = action.coordinates.latLng.lat()
@@ -50,6 +53,12 @@ const orgpageReducer = (state = initialState, action) =>
                 break;  
             case MODAL_STATE:
                 draft.pageState[action.modalName] = action.setState
+                break;
+            case ON_MATRIX_CHANGE:
+                draft.tempGrantRole.values[action.index] = action.update
+                break;
+            case SET_LOADED:
+                draft.pageState.isLoaded = action.value
                 break;
             case "succesfulOrgloaded":
                 draft.pageValues = {...action.data}
@@ -72,10 +81,7 @@ const orgpageReducer = (state = initialState, action) =>
                 break;
             case "successGrantingRole":
                 draft.pageState.rolesModalOpen = false;
-                draft.tempGrantRole = {
-                    targetUser: "",
-                    targetPriv: "",
-                }
+                draft.tempGrantRole = initialState.tempGrantRole
                 draft.pageState.isLoaded = false;
                 break;
             case "successEventCreation":

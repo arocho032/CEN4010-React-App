@@ -17,10 +17,10 @@ function CancelEventModal(props) {
 				open={props.modalOpen}
 				onClose={props.onClose}
 			>
-			<Modal.Header>New Event Form</Modal.Header>
+			<Modal.Header>Cancel Event Form</Modal.Header>
 			<Modal.Content>
 				<Modal.Description>
-					<Header>Grant Rules</Header>
+					<Header>Cancel Event</Header>
 					<p>Please select the Event to Cancel</p>
 					<Form onSubmit={() => props.onSubmit(props.tempCancelEvent.event_id)}>
 						<Form.Field>

@@ -3,14 +3,8 @@ import {
     MODAL_STATE,
     ON_CHANGE_VALUE,
     ON_HANDLE_MAP_CLICK,
+    ON_MATRIX_CHANGE
 } from './constants'
-
-export function setLoaded(value) {
-	return {
-		type: SET_LOADED,
-		value: value
-	}
-}
 
 export function modalStateOpen(modalName, set) {
 	return {
@@ -27,8 +21,15 @@ export function onHandleMapClick(coordinates) {
     }
 }
 
+export function updateRoleMatrix(value, checked) {
+    return {
+        type: ON_MATRIX_CHANGE,
+        index: value,
+        update: checked
+    }
+}
+
 export function onInputChange(name, target, value, checked) {
-    console.log(name, target, value, checked)
 	return {
 		type: ON_CHANGE_VALUE,
 		update: {
@@ -37,6 +38,13 @@ export function onInputChange(name, target, value, checked) {
 			value: name == 'eventVisibility' ? checked : value
 		}
 	}
+}
+
+export function setPageStateLoaded(value) {
+    return {
+        type: SET_LOADED,
+        value: value,
+    }
 }
 
 export function addEvent(tempEventCoor, tempEvent, hostedBy) {
@@ -48,7 +56,7 @@ export function addEvent(tempEventCoor, tempEvent, hostedBy) {
 
 export function cancelEvent(event_id) {
     return {
-        type: "server/cancelEvent",
+        type: "server/eventCancellation",
         data: {event: {event_id: event_id}}
     }
 }

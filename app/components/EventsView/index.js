@@ -10,11 +10,12 @@ import { Link } from 'react-router-dom'
 import Map from 'containers/Map';
 
 function makeEventCards(events) {
+  console.log(events)
   const cards = [];
   for (let i = 0; i <= 5; i++) {
     if (events.length <= i) break;
     cards[i] = (
-      <Card as={Link} key={i} to={encodeURI("/event/"+events[i].eventId)}>
+      <Card as={Link} key={i} to={encodeURI("/event/"+events[i].event_id)}>
         <Card.Header textAlign="center">{events[i].name}</Card.Header>
         <Card.Meta textAlign="center">
           <span>{events[i].date}, {events[i].time}</span>
@@ -28,7 +29,7 @@ function makeEventCards(events) {
   return cards;
 }
 
-function displayMap(props) {
+ function displayMap(props) {
   if(props.hasMap)
     return(
       <Grid.Column>
@@ -37,7 +38,7 @@ function displayMap(props) {
     )
 }
 
-function EventsView(props) {
+export default function EventsView(props) {
   return (
     <Grid stackable padded centered columns={2}>
       <Grid.Column>
@@ -52,19 +53,3 @@ function EventsView(props) {
     </Grid>
   );
 }
-
-const mapStateToProps = createStructuredSelector({});
-
-export function mapDispatchToProps(dispatch) {
-  return {};
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-export default compose(
-  withConnect,
-  memo,
-)(EventsView);

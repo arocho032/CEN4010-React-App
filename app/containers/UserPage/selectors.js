@@ -33,4 +33,16 @@ const makeSelectPageUser = () =>
 		user => user.pageValues
 	)
 	
-export { selectUserPage, makeSelectPageUser, makeSelectPageState, makeSelectModalOpen, makeSelectTempUserChanges }
+const makeSelectEvents = () =>
+	createSelector(
+		selectUserPage,
+		user => user.events
+	)
+
+const makeSelectOrgs = () =>
+	createSelector(
+		selectUserPage,
+		user => user.orgs
+	)
+
+export { makeSelectEvents, makeSelectOrgs, selectUserPage, makeSelectPageUser, makeSelectPageState, makeSelectModalOpen, makeSelectTempUserChanges }
