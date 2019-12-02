@@ -33,6 +33,10 @@ const userpageReducer = (state = initialState, action) =>
 			case "successOrgForUserLoaded":
 				draft.orgs = [...action.values]
 				break;
+			case "successChangingProfileInfo":
+				draft.pageState.isLoaded = false;
+				draft.pageState.modalOpen = false
+				break;
 			case "errorIncorrectPasswordEditProfile":
 				draft.pageState.attempted = true;
 				draft.pageState.passwordError = true

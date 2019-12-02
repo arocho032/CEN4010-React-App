@@ -63,9 +63,9 @@ function UserPage(props) {
 									<span><b>Username: </b>{props.user.user_name}</span><br/>
 									<span><b>Name: </b>{props.user.name}</span><br/>
 									<span><b>Email: </b>{props.user.email}</span><br/>
-									<span><b>Phone Number: </b>{props.user.phoneNum}</span><br/>
+									{/* <span><b>Phone Number: </b>{props.user.phoneNum}</span><br/> */}
 									<span><b>Private Account: </b>{props.user.priv ? 'Yes' : 'No'}</span><br/>
-									<span><b>Date of Birth: </b>{props.user.dob}</span>
+									{/* <span><b>Date of Birth: </b>{props.user.dob}</span> */}
 								</Grid.Row>
 							</Grid.Column>
 						</Grid.Row>

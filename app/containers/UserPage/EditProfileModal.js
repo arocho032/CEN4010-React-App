@@ -67,14 +67,6 @@ function createEditProfileModal(props) {
 							onChange={props.onHandleChange}
 						/>
 					</Form.Field>
-					<Form.Field>
-						<label>Date of Birth:</label>
-						<DateInput
-							name="dob"
-							value={props.tempUserChanges.dob}
-							onChange={props.onHandleChange}
-						/>	
-					</Form.Field>
 					{passField}
 					<Button.Group floated='right' attached={false}>
 						<Button type='submit'>Submit</Button>

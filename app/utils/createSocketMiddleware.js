@@ -9,7 +9,7 @@ function defaultExecute(action, emit, next, dispatch) { // eslint-disable-line n
   // var cert = process.env.CERT
   // var cipher =  cert.publicKey.encrypt(JSON.stringify(action['data']))
   // emit(eventName, btoa(cipher));
-  console.log(eventName, JSON.stringify(action['data']))
+
   emit(eventName, JSON.stringify(action['data']))
   return next(action);
 }
@@ -27,7 +27,7 @@ export default function createSocketIoMiddleware(socket, criteria = [],
 
         var actionDict = JSON.parse(action)
         actionDict['callback'] = callback
-        console.log(actionDict)
+        alert(actionDict['type'])
         dispatch(actionDict)
       });
       return next => (action) => {
