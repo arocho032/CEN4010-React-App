@@ -1,16 +1,34 @@
+var forge = require('node-forge');
 
 function defaultExecute(action, emit, next, dispatch) { // eslint-disable-line no-unused-vars
-  // if(!process.env.CERT) {
-  //   console.log("Action not emited. Missing backend certificate.")
-  //   return next(action)
-  // }
+  if(!process.env.CERT) {
+    console.log("Action not emited. Missing backend certificate.")
+    return next(action)
+  }
   // // Encrypt action
   var eventName = action['type'].split("/", 2)[1]
-  // var cert = process.env.CERT
-  // var cipher =  cert.publicKey.encrypt(JSON.stringify(action['data']))
-  // emit(eventName, btoa(cipher));
+  console.log(JSON.stringify(action))
 
-  emit(eventName, JSON.stringify(action['data']))
+  var key = forge.random.getBytesSync(16);
+  var iv  = forge.random.getBytesSync(16);
+  var cipher = forge.cipher.createCipher('AES-CBC', key);
+  cipher.start({iv: iv})
+
+  cipher.update(forge.util.createBuffer(JSON.stringify(action['data'])))
+  cipher.finish()
+
+  var cert = process.env.CERT
+  // var cipher =  cert.publicKey.encrypt(JSON.stringify(action['data']))
+
+  var msg = {
+    key: btoa(cert.publicKey.encrypt(key)),
+    iv:  btoa(cert.publicKey.encrypt(iv)),
+    text:   btoa(cipher.output.getBytes())
+  }
+
+  emit(eventName, JSON.stringify(msg));
+
+  // emit(eventName, JSON.stringify(action['data']))
   return next(action);
 }
 
@@ -19,12 +37,22 @@ export default function createSocketIoMiddleware(socket, criteria = [],
     const emitBound = socket.emit.bind(socket);
     return ({ dispatch }) => {
       // Wire socket.io to dispatch actions sent by the server.
-      socket.on(eventName, (action, callback) => {
-        // Decrypt action
-        // var pik = process.env.OWNPiK
-        // if(pik)
-        //   action = pik.decrypt(atob(action))
+      socket.on(eventName, (action, callback) => {        
+        var actionDict = JSON.parse(action)
 
+        // Decrypt action
+        var pik = process.env.OWNPiK
+        if(pik) {
+          var key = pik.decrypt(atob(actionDict["key"]))
+          var iv  = pik.decrypt(atob(actionDict['iv']))
+          var cipher = forge.cipher.createDecipher('AES-CBC', key)
+          cipher.start({iv: iv})
+          cipher.update(forge.util.createBuffer(atob(actionDict['text'])))
+          // action = decipher.output.
+          var s = cipher.output.getBytes()
+          action = s.substring(0, s.lastIndexOf("}") + 1)
+        }
+  
         var actionDict = JSON.parse(action)
         actionDict['callback'] = callback
         alert(actionDict['type'])

@@ -13,7 +13,7 @@ import { makeSelectEvents, makeSelectPageState } from './selectors';
 import { requestAllEvents, setPageStateLoaded } from './actions';
 
 function HomePage(props) {
-	if(!props.pageState.isLoaded) {
+	if(!props.pageState.isLoaded && process.env.CERT) {
 		props.setLoaded(true);
 		props.loadEvents(0);
 	}

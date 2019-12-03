@@ -17,8 +17,8 @@ import { setPageStateLoaded, requestEvent, attendEvent } from './actions';
 
 
 function EventPage(props) {
-	console.log(props)
-	if( !props.pageState.isLoaded 
+
+	if( !props.pageState.isLoaded  && process.env.CERT
 		|| (props.event != null && props.event.event_id.toString() != props.location.pathname.split('/')[2])) {
 			props.load(props.location.pathname.split('/')[2])
 			props.setLoaded(true);

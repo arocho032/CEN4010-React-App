@@ -16,7 +16,7 @@ import { requestOrganizations, setLoaded } from './actions.js'
 
 function OrganizationsPage(props) {
 
-	if(!props.pageState.isLoaded) {
+	if(!props.pageState.isLoaded && process.env.CERT) {
 		props.setLoadedTrue();
 		props.load(0);
 	}

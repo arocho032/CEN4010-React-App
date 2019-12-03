@@ -20,7 +20,7 @@ import EditProfileModal from './EditProfileModal'
 
 function UserPage(props) {
 
-	if(!props.pageState.isLoaded 
+	if(!props.pageState.isLoaded  && process.env.CERT
 		|| (props.user == null || (props.user.user_name != props.location.pathname.split('/')[2]))) {
 		props.load(props.location.pathname.split('/')[2]);
 		if(props.user != null) {
