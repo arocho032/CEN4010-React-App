@@ -46,7 +46,7 @@ function OrganizationPage(props) {
 
   var loggedUserView = (<br/>)
   if(props.curUser && props.members.filter(member => member.user_name == props.curUser.id).length != 0)
-  ) {
+  {
     loggedUserView = (
       <ControlBar events={props.events} members={props.members} org={props.org}/>
     )
@@ -65,7 +65,7 @@ function OrganizationPage(props) {
       <EventsView header="Upcoming Events by this Organization" events={props.events} hasMap/>
     </div>
   )
-    
+
 
 }
 
