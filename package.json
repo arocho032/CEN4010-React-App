@@ -80,7 +80,7 @@
     "intl": "1.2.5",
     "invariant": "2.2.4",
     "ip": "1.1.5",
-    "lodash": "4.17.13",
+    "lodash": "4.17.21",
     "minimist": "1.2.0",
     "node-forge": "^0.9.1",
     "prop-types": "15.7.2",
